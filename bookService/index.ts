@@ -12,11 +12,11 @@ app.listen(port, () => {
 });
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'library',
-    multipleStatements : true
+    host: 'sql9.freesqldatabase.com',
+    user: 'sql9625789',
+    password: 'EgG6fbeKsy',
+    database: 'sql9625789',
+    multipleStatements : true,
   });
   
   connection.connect((error) => {

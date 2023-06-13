@@ -10,7 +10,10 @@ books.get("/get",  async (request, responce) => {
     "SELECT * FROM books",
     (err, results) => {
       if (!err) {
-        responce.send(results);
+        responce.status(200).json({
+           message: 'Book return successfully',
+           results 
+          });
       } else {
         console.log(err);
       }
