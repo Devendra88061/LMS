@@ -1,30 +1,33 @@
 import { Router } from 'express';
 import Users from '../module/user';
 export const register = Router();
+import { Res } from '../../commons/response';
 
 var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const reso = new Res();
 
 register.post('/register', async (request: any, response: any) => {
     let user = await Users.findOne({ email: request.body?.email });
     if (user) {
-        return response.status(400).send({
-            message: 'User already exist!'
-        });
+          reso.statusCode = 400,
+          reso.message = "User already exist!",
+          response.status(400).json(reso);
     } else {
         if (!request.body.username || !request.body.email || !request.body.password) {
-            return response.status(400).send({
-                message: 'Required fields are missing'
-            });
+          reso.statusCode = 400,
+          reso.message = "Required fields are missing",
+          response.status(400).json(reso);
+        
         }
         else if (!(request.body.email.match(validRegex))) {
-            return response.status(400).send({
-                message: 'Please enter a valid Email'
-            });
+          reso.statusCode = 400,
+          reso.message = "Please enter a valid Email",
+          response.status(400).json(reso);
         }
         else if ((request.body.password).length < 6) {
-            return response.status(400).send({
-                message: 'Password must contain atleast 6 characters'
-            })
+          reso.statusCode = 400,
+          reso.message = "Password must contain atleast 6 characters",
+          response.status(400).json(reso); 
         }
         else {
             user = new Users({
@@ -33,16 +36,12 @@ register.post('/register', async (request: any, response: any) => {
                 password: request.body.password
             });
             await user.save();
-            response.status(201).send({
-                message: 'user register successfully',
-                data: user
-            });
+            reso.statusCode = 200,
+            reso.message = "User register successfully",
+            reso.data = user
+            response.status(200).json(reso); 
         }
     }
 });
 
 
-function validateEmail(email: string): boolean {
-    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}

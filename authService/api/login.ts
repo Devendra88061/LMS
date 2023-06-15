@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import Users from '../module/user';
+import { Res } from '../../commons/response';
 export const login = Router();
-
-console.log("You are in login");
+const reso = new Res();
 
 login.post("/login", async (request: any, response: any) => {
   try {
@@ -13,22 +13,23 @@ login.post("/login", async (request: any, response: any) => {
       //check if password matches
       const result = request.body.password === user.password;
       if (result) {
-        response.status(200).json({
-          result: "Login Successfully"
-        });
+          reso.statusCode = 200,
+          reso.message = "User login successfully",
+          response.status(200).json(reso);
       } else {
-        response.status(400).json({
-          error: "password doesn't match"
-        });
+          reso.statusCode = 400,
+          reso.message = "Password doesn't match",
+          response.status(400).json(reso);
       }
     } else {
-      response.status(400).json({
-        error: "User doesn't exist"
-      });
+        reso.statusCode = 400,
+        reso.message = "User doesn't exist",
+        response.status(400).json(reso);
     }
   } catch (error) {
-    response.status(500).json({
-      error: "internal server error"
-    });
+      reso.statusCode = 500,
+      reso.message = "internal server error",
+      response.status(500).json(reso);
+
   }
 });
