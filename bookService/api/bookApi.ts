@@ -32,52 +32,6 @@ books.get("/get", async (request, responce) => {
   );
 });
 
-//add book
-
-// books.post("/add", async (request, response) => {
-
-//   const newBook = request.body;
-//   const checkBook = "SELECT * FROM books WHERE BookName = ?";
-//   console.log("checkSql=>", checkBook);
-//   connection.query(checkBook, [newBook.BookName], (err, Results) => {
-//     if (!err) {
-//       if (Results.length > 0) {
-//         reso.statusCode = 400,
-//           reso.message = "Book already exists",
-//           response.json(reso);
-//       } else {
-//         // Add the book record
-//         const addBook = "INSERT INTO books (BookID,BookName, Author, Category, Quantity) VALUES (?, ?, ?, ?, ?)";
-//         connection.query(
-//           addBook,
-//           [newBook.BookID, newBook.BookName, newBook.Author, newBook.Category, newBook.Quantity],
-//           (err, addResults) => {
-//             if (!err && addResults.affectedRows > 0) {
-//               reso.statusCode = 200,
-//                 reso.message = "Book added successfully",
-//                 reso.data = newBook,
-//                 response.json(reso);
-
-//             } else {
-//               console.log(err);
-//               reso.statusCode = 500,
-//                 reso.message = "",
-//                 reso.error = "An error occurred while adding the book",
-//                 response.json(reso);
-//             }
-//           }
-//         );
-//       }
-//     } else {
-//       console.log(err);
-//       reso.statusCode = 500,
-//         reso.message = "",
-//         reso.error = "An error occurred while checking the book",
-//         response.json(reso);
-//     }
-//   });
-// });
-
 
 //update book 
 books.put("/update/:id", async (request, response) => {

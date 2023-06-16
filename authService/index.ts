@@ -3,6 +3,7 @@ const mongoose = require ('mongoose');
 require ("dotenv").config();
 import {register} from './api/register';
 import {login} from './api/login';
+import { userModule } from './api/userModule';
 
 const app = express();
 const port = 4000;
@@ -36,4 +37,7 @@ app.use('/auth',register);
 
 //login route
 app.use('/auth',login);
+
+//get All user
+app.use('/auth',userModule);
 
